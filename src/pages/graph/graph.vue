@@ -6,7 +6,7 @@
     >
       <span class="logo">Vue 生命周期图示</span>
       <button
-        style="background:#1890FF;color:#fff;border-radius:5px;margin-left:10px;cursor:pointer;"
+        style="background:#176ab8;color:#ffffff;border-radius:5px;margin-left:10px;cursor:pointer;"
         @click="changeMode"
       >
         切换拖拽模式 ({{ mode }})
@@ -116,7 +116,8 @@ export default {
   components: {
     ItemPanel,
   },
-  data () {
+  // 和上面的data.js无关系，作为data函数使用
+  data () {  
     return {
       mode:      'drag-shadow-node',
       graph:     {},
@@ -174,8 +175,8 @@ export default {
   mounted () {
     // 创建画布
     this.$nextTick(() => {
-      this.createGraphic();
-      this.initGraphEvent();
+      this.createGraphic();   // 预定义图并渲染
+      this.initGraphEvent();  // 初始化事件
     });
   },
   beforeDestroy () {
@@ -183,6 +184,7 @@ export default {
   },
   methods: {
     createGraphic () {
+      // 提供menu, grid的插件
       const vm = this;
       const grid = new G6.Grid();
       const menu = new G6.Menu({
@@ -220,7 +222,7 @@ export default {
           type:  'rect-node',
           style: {
             radius: 10,
-            width:  100,
+            width:  400,
             height: 50,
             cursor: 'move',
             fill:   '#ecf3ff',
@@ -241,6 +243,7 @@ export default {
             stroke:          '#aab7c3',
             lineAppendWidth: 10, // 防止线太细没法点中
             endArrow:        true,
+            // zIndex:          100,
           },
         },
         // 覆盖全局样式
@@ -278,13 +281,13 @@ export default {
         // ... 其他G6原生入参
       });
 
-      this.graph = new G6.Graph(cfg);
-      this.graph.read(data); // 读取数据
+      this.graph = new G6.Graph(cfg); // 预定义graph的参数
+      this.graph.read(data); // 读取数据 from data.js
       window.$welabxG6 = this.graph;
       // this.graph.paint(); // 渲染到页面
       // this.graph.get('canvas').set('localRefresh', false); // 关闭局部渲染
       // this.graph.fitView();
-    },
+    }, // end of create graphics
     // 初始化图事件
     initGraphEvent () {
       this.graph.on('drop', e => {
@@ -300,7 +303,7 @@ export default {
       });
 
       this.graph.on('node:drop', e => {
-        e.item.getOutEdges().forEach(edge => {
+        e.item.getOutEdges().forEach(edge => {    // 获取被拖动的节点的所有出边，并对每个出边执行回调函数
           edge.clearStates('edgeState');
         });
       });
@@ -464,7 +467,10 @@ export default {
     },
     save() {
       // eslint-disable-next-line no-alert
-      window.alert('我觉得就算我不写你也会了');
+      // window.alert('我觉得就算我不写你也会了');
+      const data = this.graph.save();
+      localStorage.setItem('graphData', JSON.stringify(data));
+      window.location.reload();
     },
   },
 };

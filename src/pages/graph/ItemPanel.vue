@@ -51,6 +51,13 @@
         data-shape="diamond-node"
         class="node iconfont icon-diamond"
       />
+      <img
+        draggable="true"
+        data-label="图片节点"
+        data-shape="custom-image-node"
+        class="node iconfont icon-image"
+        src="https://cdn.pixabay.com/photo/2023/05/11/05/40/blackbird-7985552_1280.jpg"
+      />
       <i
         draggable="true"
         data-label="对话框节点"
@@ -112,9 +119,9 @@
   z-index    : 10;
   width      : 100px;
   background : #fff;
-  padding-top: 65px;
+  padding-top: 80px;
   transition : transform .3s ease-in-out;
-  box-shadow : 0 0 2px 0 rgba(0, 0, 0, .1);
+  box-shadow : 0 0 2px 0 rgba(220, 11, 11, 0.1);
 
   &.hidden {
     transform: translate(-100%, 0);

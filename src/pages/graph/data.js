@@ -3,6 +3,29 @@ import G6 from '@antv/g6';
 export default {
   nodes: [
     {
+      id:   'node0',
+      image:   'https://cdn.pixabay.com/photo/2023/05/11/05/40/blackbird-7985552_1280.jpg',
+      data: {
+        action: '初始化',
+      },
+      type: 'custom-image-node',
+      x: 500,
+      y: 100,
+      size: [120],
+      style:{
+        width: 200,
+        height: 200,
+      },
+      anchorPoints: [
+        [0, 0],
+        [0.5, 0],
+        [0, 1],
+        [0.5, 1],
+        [0.2, 0.3]
+      ],
+    },
+  
+    {
       id:   '1', // 非必选
       data: {
         action: '初始化',
@@ -50,6 +73,8 @@ export default {
         [0.5, 1],
         [1, 0],
         [1, 1],
+        [0.5, 0.5],
+        [0.45, 0.2]
       ],
     },
     {
@@ -74,6 +99,16 @@ export default {
           textAlign: 'center',
         },
       },
+      anchorPoints: [
+        [0, 0],
+        [0.5, 0],
+        [0, 1],
+        [0.5, 1],
+        [1, 0],
+        [1, 1],
+        [0.5, 0.5],
+        [0.45, 0.2]
+      ],
     },
     {
       id:    '3',

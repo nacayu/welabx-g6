@@ -90,7 +90,6 @@ export default G6 => {
         ry: 30,
         // 将图形中心坐标移动到图形中心, 用于方便鼠标位置计算
         x:  0,
-        y:  0,
       }, cfg);
     },
   }, 'base-node');
@@ -194,4 +193,34 @@ export default G6 => {
       ];
     },
   }, 'base-node');
+
+  G6.registerNode('custom-image-node', {
+    shapeType: 'image',
+    getImageUrl(cfg) {
+      // 根据传入的数据获取图像路径
+      return cfg.image || 'https://cdn.pixabay.com/photo/2023/05/11/05/40/blackbird-7985552_1280.jpg';
+    },
+    getShapeStyle(cfg) {
+      const imageUrl = this.getImageUrl(cfg);
+  
+      return getStyle.call(this, {
+        x: -cfg.style.width / 2,
+        y: -cfg.style.height / 2,
+        width: cfg.style.width,
+        height: cfg.style.height,
+        img: imageUrl,
+      }, cfg);
+    },
+    getAnchorPoints(cfg) {
+      return cfg.anchorPoints || [
+        [0.5, 0],
+        [0, 1],
+        [1, 1],
+      ];
+    },
+  }, 'base-node');
+
 };
+
+
+
